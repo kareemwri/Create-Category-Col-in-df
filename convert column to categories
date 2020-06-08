@@ -1,0 +1,21 @@
+import pandas as pd
+#load the dataframe using pd.read
+#create a new dataframe by copying the first using df.copy()
+#you can obtain the name of the column you want to use by using df.head() or df.columns
+
+def col_to_cat(df,col_name,new_col):
+    cat=df[col_name].unique()
+    cat_dict={}
+    j=0
+    for i in cat:
+        temp=str(i)
+        cat_dict[temp]={j}
+        j+=1
+    def set_to_int(ind):
+        g=cat_dict[ind]
+        g=list(g)
+        return g[0]
+    df[new_col]=df.apply(lambda row: set_to_int(row[col_name]), axis = 1) 
+    
+#enter the df and the next two arguments must be strings for the column you are selecting and the column you are creating
+col_to_cat(df,'orig_col','new_col')
